@@ -27,6 +27,12 @@ public class PlayerController : MonoBehaviour
 
         float movement = new Vector3(vAxis,0,hAxis).sqrMagnitude;
         animator.SetFloat("movement", movement);
+
+        if (Input.GetButtonDown("Fire1")) 
+        {
+            animator.SetTrigger("atk");
+        }
+
     }
 
     private void FixedUpdate()
