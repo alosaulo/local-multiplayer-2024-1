@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] int vida;
+
+    bool vivo = true;
+
     float vAxis;
     float hAxis;
     Rigidbody rb;
@@ -53,6 +57,20 @@ public class PlayerController : MonoBehaviour
                             10);
         }
 
+    }
+
+    public void LevarDano(int dano) 
+    {
+        vida -= dano;
+
+        if (vida <= 0)
+        {
+            animator.SetBool("die", true);
+            vivo = false;
+
+            GetComponent<Collider>().enabled = false;
+            rb.useGravity = false;
+        }
     }
 
     public void AtivarAtk() { playerAtk.SetActive(true); }
