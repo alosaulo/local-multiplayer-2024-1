@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] float speed;
 
+    [SerializeField] GameObject playerAtk;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,5 +54,10 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+    public void AtivarAtk() { playerAtk.SetActive(true); }
+
+    public void DesativarAtk() { playerAtk.SetActive(false); }
+
 
 }
