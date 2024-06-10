@@ -85,7 +85,6 @@ public class SlimeController : MonoBehaviour
         if (outro.gameObject.tag == "PlayerAtk") 
         {
             animator.SetTrigger("dano");
-
             vida--;
 
             if (vida <= 0) 

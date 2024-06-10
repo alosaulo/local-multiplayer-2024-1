@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] int numeroJogador;
+
     [SerializeField] int vida;
 
     bool vivo = true;
@@ -28,13 +30,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        vAxis = Input.GetAxis("Vertical");
-        hAxis = Input.GetAxis("Horizontal");
+        vAxis = Input.GetAxis("VerticalP"+numeroJogador);
+        hAxis = Input.GetAxis("HorizontalP" + numeroJogador);
 
         float movement = new Vector3(vAxis,0,hAxis).sqrMagnitude;
         animator.SetFloat("movement", movement);
 
-        if (Input.GetButtonDown("Fire1")) 
+        if (Input.GetButtonDown("Fire1P"+numeroJogador)) 
         {
             animator.SetTrigger("atk");
         }
@@ -61,8 +63,8 @@ public class PlayerController : MonoBehaviour
 
     public void LevarDano(int dano) 
     {
+        animator.SetTrigger("dano");
         vida -= dano;
-
         if (vida <= 0)
         {
             animator.SetBool("die", true);
