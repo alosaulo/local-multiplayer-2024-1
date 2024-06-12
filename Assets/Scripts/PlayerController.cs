@@ -1,10 +1,13 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditorInternal;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI txtVida;
+
     [SerializeField] int numeroJogador;
 
     [SerializeField] int vida;
@@ -30,17 +33,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        vAxis = Input.GetAxis("VerticalP"+numeroJogador);
-        hAxis = Input.GetAxis("HorizontalP" + numeroJogador);
-
-        float movement = new Vector3(vAxis,0,hAxis).sqrMagnitude;
-        animator.SetFloat("movement", movement);
-
-        if (Input.GetButtonDown("Fire1P"+numeroJogador)) 
+        if (vivo)
         {
-            animator.SetTrigger("atk");
+            Movimentar();
+            Atacar();
         }
-
+        MostrarVida();            
     }
 
     private void FixedUpdate()
@@ -59,6 +57,32 @@ public class PlayerController : MonoBehaviour
                             10);
         }
 
+    }
+
+    void Movimentar() 
+    {
+        vAxis = Input.GetAxis("VerticalP" + numeroJogador);
+        hAxis = Input.GetAxis("HorizontalP" + numeroJogador);
+
+        float movement = new Vector3(vAxis, 0, hAxis).sqrMagnitude;
+        animator.SetFloat("movement", movement);
+    }
+
+    void Atacar() 
+    {
+        if (Input.GetButtonDown("Fire1P" + numeroJogador))
+        {
+            animator.SetTrigger("atk");
+        }
+    }
+
+    void MostrarVida() 
+    {
+        txtVida.text = "";
+        for (int i = 0; i < vida; i++)
+        {
+            txtVida.text += "♥";
+        }
     }
 
     public void LevarDano(int dano) 

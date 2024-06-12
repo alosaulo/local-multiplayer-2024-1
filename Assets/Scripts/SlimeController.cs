@@ -13,6 +13,8 @@ public class SlimeController : MonoBehaviour
     bool vivo = true;
     bool podeAtacar = true;
 
+    PlayerController[] players;
+
     PlayerController player;
     Rigidbody rb;
     Animator animator;
@@ -21,13 +23,15 @@ public class SlimeController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        player = FindObjectOfType<PlayerController>();
         animator = GetComponent<Animator>();
+        players = 
+            FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
     }
 
     // Update is called once per frame
     void Update()
     {
+        CalcularPlayerMaisProximo();
         if (vivo) 
         { 
             float distancia = Vector3.Distance
@@ -37,6 +41,23 @@ public class SlimeController : MonoBehaviour
                 SeguirPlayer();
             else if(podeAtacar)
                 AtacarPlayer();
+        }
+    }
+
+    private void CalcularPlayerMaisProximo() 
+    {
+        float distance = float.MaxValue;
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            float distanceTemp = Vector3.Distance
+                (players[i].transform.position, transform.position);
+
+            if (distanceTemp < distance) 
+            { 
+                distance = distanceTemp;
+                player = players[i];
+            }
         }
     }
 
